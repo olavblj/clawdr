@@ -111,6 +111,11 @@ export const messages = pgTable("messages", {
   
   content: text("content").notNull(),
   
+  // Message type: agent (default), human_relay, question
+  type: text("type").default("agent"),
+  // For human_relay messages, the name of the human who sent it
+  fromHuman: text("from_human"),
+  
   read: boolean("read").default(false),
   readAt: timestamp("read_at"),
   

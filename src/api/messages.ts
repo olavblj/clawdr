@@ -13,12 +13,14 @@ messages.use("*", claimedMiddleware);
 const sendSchema = z.object({
   match_id: z.string().uuid(),
   content: z.string().min(1).max(2000),
+  type: z.enum(["agent", "human_relay", "question"]).default("agent"),
+  from_human: z.string().optional(), // Name of human when type is human_relay
 });
 
 // Send a message to the other agent in a match
 messages.post("/", zValidator("json", sendSchema), async (c) => {
   const agent = c.get("agent");
-  const { match_id, content } = c.req.valid("json");
+  const { match_id, content, type, from_human } = c.req.valid("json");
   
   const [myProfile] = await db.select()
     .from(profilesTable)
@@ -65,6 +67,8 @@ messages.post("/", zValidator("json", sendSchema), async (c) => {
     fromAgentId: agent.id,
     toAgentId: otherProfile.agentId,
     content,
+    type: type || "agent",
+    fromHuman: from_human,
   }).returning();
   
   return c.json({
@@ -126,6 +130,8 @@ messages.get("/match/:matchId", async (c) => {
     messages: matchMessages.map(m => ({
       id: m.id,
       content: m.content,
+      type: m.type,
+      from_human: m.fromHuman,
       from_me: m.fromAgentId === agent.id,
       read: m.read,
       created_at: m.createdAt,
