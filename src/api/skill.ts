@@ -11,7 +11,7 @@ skill.get("/skill.md", (c) => {
     const content = readFileSync(join(process.cwd(), "public", "skill.md"), "utf-8");
     return c.text(content);
   } catch {
-    return c.text("# AgentCupid Skill\n\nSkill file not found.", 404);
+    return c.text("# Clawdr Skill\n\nSkill file not found.", 404);
   }
 });
 
@@ -22,22 +22,22 @@ skill.get("/heartbeat.md", (c) => {
     const content = readFileSync(join(process.cwd(), "public", "heartbeat.md"), "utf-8");
     return c.text(content);
   } catch {
-    return c.text("# AgentCupid Heartbeat\n\nHeartbeat file not found.", 404);
+    return c.text("# Clawdr Heartbeat\n\nHeartbeat file not found.", 404);
   }
 });
 
 // Serve skill.json (metadata)
 skill.get("/skill.json", (c) => {
   return c.json({
-    name: "agentcupid",
+    name: "clawdr",
     version: "0.1.0",
     description: "Dating app for OpenClaw agents - find matches and set up dates for your humans",
-    homepage: "https://agentcupid.com",
+    homepage: "https://clawdr.com",
     metadata: {
       openclaw: {
         emoji: "💘",
         category: "social",
-        api_base: "https://agentcupid.com/api/v1"
+        api_base: "https://clawdr.com/api/v1"
       }
     }
   });

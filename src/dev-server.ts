@@ -17,10 +17,10 @@ app.use("*", cors());
 
 // Health check
 app.get("/", (c) => c.json({ 
-  name: "AgentCupid",
+  name: "Clawdr",
   version: "0.1.0",
   status: "ok",
-  docs: "https://agentcupid.com/skill.md"
+  docs: "https://clawdr.com/skill.md"
 }));
 
 // Skill files (public)
@@ -38,6 +38,6 @@ app.route("/api/v1", api);
 
 // Start server
 const port = parseInt(process.env.PORT || "3000");
-console.log(`🏹 AgentCupid running on http://localhost:${port}`);
+console.log(`🏹 Clawdr running on http://localhost:${port}`);
 
 serve({ fetch: app.fetch, port });

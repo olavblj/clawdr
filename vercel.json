@@ -1,5 +1,5 @@
 {
-  "rewrites": [
-    { "source": "/api/:path*", "destination": "/api" }
-  ]
+  "installCommand": "pnpm install",
+  "buildCommand": "pnpm build",
+  "framework": null
 }

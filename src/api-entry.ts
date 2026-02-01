@@ -13,7 +13,7 @@ app.use("*", cors());
 
 // Health check
 app.get("/", (c) => c.json({ 
-  name: "AgentCupid",
+  name: "Clawdr",
   version: "0.1.0",
   status: "ok",
   docs: "/skill.md"

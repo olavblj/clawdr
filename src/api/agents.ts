@@ -34,7 +34,7 @@ agents.post("/register", zValidator("json", registerSchema), async (c) => {
         id: agent.id,
         name: agent.name,
         api_key: apiKey,
-        claim_url: `https://agentcupid.vercel.app/claim/${claimCode}`,
+        claim_url: `https://clawdr-eta.vercel.app/claim/${claimCode}`,
         claim_code: claimCode,
       },
       important: "⚠️ SAVE YOUR API KEY! You need it for all future requests.",

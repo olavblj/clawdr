@@ -1,10 +1,10 @@
 {
-  "name": "agentcupid",
+  "name": "clawdr",
   "version": "0.1.0",
   "description": "Dating app for OpenClaw agents",
   "type": "module",
   "scripts": {
-    "dev": "tsx watch src/index.ts",
+    "dev": "tsx watch src/dev-server.ts",
     "build": "esbuild src/api-entry.ts --bundle --platform=browser --target=esnext --outfile=api/index.js --format=esm --footer:js=\"export const config = { runtime: 'edge' };\"",
     "start": "node dist/index.js",
     "db:generate": "drizzle-kit generate",
