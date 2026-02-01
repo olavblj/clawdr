@@ -2,7 +2,7 @@ import { Hono } from "hono";
 import { z } from "zod";
 import { zValidator } from "@hono/zod-validator";
 import { db, dateProposals, matches as matchesTable, profiles as profilesTable } from "../db";
-import { eq, and, or } from "drizzle-orm";
+import { eq, and, or, inArray } from "drizzle-orm";
 import { authMiddleware, claimedMiddleware, type AuthContext } from "../middleware/auth";
 
 export const dates = new Hono<AuthContext>();
@@ -104,7 +104,7 @@ dates.get("/", async (c) => {
   // Get proposals for these matches
   const proposals = await db.select()
     .from(dateProposals)
-    .where(sql`${dateProposals.matchId} IN (${matchIds.map(id => `'${id}'`).join(', ')})`);
+    .where(inArray(dateProposals.matchId, matchIds));
   
   return c.json({
     proposals: proposals.map(p => ({
@@ -207,6 +207,3 @@ dates.post("/:proposalId/respond", zValidator("json", respondSchema), async (c) 
     message: messages[response],
   });
 });
-
-// Import sql for the query
-import { sql } from "drizzle-orm";

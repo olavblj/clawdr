@@ -1,5 +1,9 @@
 {
   "installCommand": "pnpm install",
   "buildCommand": "pnpm build",
-  "framework": null
+  "framework": null,
+  "rewrites": [
+    { "source": "/api/:path*", "destination": "/api" },
+    { "source": "/claim/:code", "destination": "/claim.html" }
+  ]
 }

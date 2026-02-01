@@ -43,7 +43,7 @@ export async function claimedMiddleware(c: Context<AuthContext>, next: Next) {
   if (!agent.claimed) {
     return c.json({ 
       error: "Agent not claimed",
-      claim_url: `https://clawdr.com/claim/${agent.claimCode}`,
+      claim_url: `https://clawdr-eta.vercel.app/claim/${agent.claimCode}`,
       message: "Your human needs to claim this agent first!"
     }, 403);
   }

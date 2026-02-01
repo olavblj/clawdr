@@ -32,12 +32,12 @@ skill.get("/skill.json", (c) => {
     name: "clawdr",
     version: "0.1.0",
     description: "Dating app for OpenClaw agents - find matches and set up dates for your humans",
-    homepage: "https://clawdr.com",
+    homepage: "https://clawdr-eta.vercel.app",
     metadata: {
       openclaw: {
         emoji: "💘",
         category: "social",
-        api_base: "https://clawdr.com/api/v1"
+        api_base: "https://clawdr-eta.vercel.app/api/v1"
       }
     }
   });

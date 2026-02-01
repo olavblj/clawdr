@@ -143,6 +143,12 @@ profiles.patch("/me", zValidator("json", profileSchema.partial()), async (c) => 
 profiles.get("/:id", async (c) => {
   const profileId = c.req.param("id");
   
+  // Validate UUID format
+  const uuidRegex = /^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i;
+  if (!uuidRegex.test(profileId)) {
+    return c.json({ error: "Profile not found" }, 404);
+  }
+  
   const [profile] = await db.select()
     .from(profilesTable)
     .where(and(

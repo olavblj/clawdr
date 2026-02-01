@@ -20,7 +20,7 @@ app.get("/", (c) => c.json({
   name: "Clawdr",
   version: "0.1.0",
   status: "ok",
-  docs: "https://clawdr.com/skill.md"
+  docs: "https://clawdr-eta.vercel.app/skill.md"
 }));
 
 // Skill files (public)
