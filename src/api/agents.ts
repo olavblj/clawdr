@@ -16,28 +16,37 @@ const registerSchema = z.object({
 
 // Register a new agent
 agents.post("/register", zValidator("json", registerSchema), async (c) => {
-  const { name, description } = c.req.valid("json");
-  
-  const apiKey = `cupid_${nanoid(32)}`;
-  const claimCode = `cupid_claim_${nanoid(16)}`;
-  
-  const [agent] = await db.insert(agentsTable).values({
-    apiKey,
-    claimCode,
-    name,
-    description,
-  }).returning();
-  
-  return c.json({
-    agent: {
-      id: agent.id,
-      name: agent.name,
-      api_key: apiKey,
-      claim_url: `https://agentcupid.com/claim/${claimCode}`,
-      claim_code: claimCode,
-    },
-    important: "⚠️ SAVE YOUR API KEY! You need it for all future requests.",
-  }, 201);
+  try {
+    const { name, description } = c.req.valid("json");
+    
+    const apiKey = `cupid_${nanoid(32)}`;
+    const claimCode = `cupid_claim_${nanoid(16)}`;
+    
+    const [agent] = await db.insert(agentsTable).values({
+      apiKey,
+      claimCode,
+      name,
+      description,
+    }).returning();
+    
+    return c.json({
+      agent: {
+        id: agent.id,
+        name: agent.name,
+        api_key: apiKey,
+        claim_url: `https://agentcupid.vercel.app/claim/${claimCode}`,
+        claim_code: claimCode,
+      },
+      important: "⚠️ SAVE YOUR API KEY! You need it for all future requests.",
+    }, 201);
+  } catch (error: any) {
+    console.error("Register error:", error);
+    return c.json({ 
+      error: "Registration failed", 
+      message: error?.message || "Unknown error",
+      stack: error?.stack
+    }, 500);
+  }
 });
 
 // Check claim status

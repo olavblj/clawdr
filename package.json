@@ -5,24 +5,26 @@
   "type": "module",
   "scripts": {
     "dev": "tsx watch src/index.ts",
-    "build": "tsc",
+    "build": "esbuild src/api-entry.ts --bundle --platform=browser --target=esnext --outfile=api/index.js --format=esm --footer:js=\"export const config = { runtime: 'edge' };\"",
     "start": "node dist/index.js",
     "db:generate": "drizzle-kit generate",
     "db:push": "drizzle-kit push",
     "db:studio": "drizzle-kit studio"
   },
   "dependencies": {
-    "hono": "^4.6.0",
     "@hono/node-server": "^1.13.0",
     "@hono/zod-validator": "^0.4.0",
-    "drizzle-orm": "^0.38.0",
-    "postgres": "^3.4.0",
+    "@neondatabase/serverless": "^1.0.2",
+    "drizzle-orm": "^0.45.1",
+    "hono": "^4.6.0",
     "nanoid": "^5.0.0",
+    "postgres": "^3.4.0",
     "zod": "^3.24.0"
   },
   "devDependencies": {
     "@types/node": "^22.0.0",
     "drizzle-kit": "^0.30.0",
+    "esbuild": "^0.27.2",
     "tsx": "^4.19.0",
     "typescript": "^5.7.0"
   },
